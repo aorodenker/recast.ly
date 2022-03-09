@@ -1,4 +1,4 @@
-import exampleVideoData from '../data/exampleVideoData.js';
+
 import VideoListEntry from '../components/VideoListEntry.js';
 /*
 in videolist
@@ -6,9 +6,9 @@ in videolist
 . takes us to src directory
 */
 
-var VideoList = (props) => (
+var VideoList = ({videos, titleClick}) => (
   <div className="video-list">
-    {props.videos.map(video => <VideoListEntry video={video} key={video.id.videoId} titleClick={props.titleClick}/>)}
+    {videos.map(video => <VideoListEntry video={video} key={video.etag} titleClick={titleClick}/>)}
   </div>
 );
 

@@ -1,34 +1,28 @@
-import exampleVideoData from '../data/exampleVideoData.js';
+import Search from '../components/Search.js';
 import VideoPlayer from '../components/VideoPlayer.js';
 import VideoList from '../components/VideoList.js';
-
-//class
-//state - list of videos
-// var App = (props) => (
-//   <div>
-//     <nav className="navbar">
-//       <div className="col-md-6 offset-md-3">
-//         <div><h5><em>search</em> view goes here</h5></div>
-//       </div>
-//     </nav>
-//     <div className="row">
-//       <div className="col-md-7">
-//         <VideoPlayer video={exampleVideoData[0]}/>
-//       </div>
-//       <div className="col-md-5">
-//         <VideoList videos={exampleVideoData}/>
-//       </div>
-//     </div>
-//   </div>
-// );
+import searchYouTube from '../lib/searchYouTube.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      videos: exampleVideoData,
-      currentVideo: exampleVideoData[0]
+      videos: [],
+      currentVideo: null,
+      isLoading: true
     };
+
+    this.getYouTubeVideos('react tutorials');
+  }
+
+  getYouTubeVideos(query) {
+    searchYouTube(query, (videos) =>
+      this.setState({
+        currentVideo: videos[0],
+        isLoading: false,
+        videos: videos
+      })
+    );
   }
 
   onVideoClick(clickedVideo) { //?
@@ -44,7 +38,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <Search handleSearchInputChange={this.getYouTubeVideos.bind(this)}/>
           </div>
         </nav>
         <div className="row">
