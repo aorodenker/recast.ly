@@ -12,7 +12,7 @@ class App extends React.Component {
       isLoading: true
     };
 
-    this.getYouTubeVideos('react tutorials');
+
   }
 
   getYouTubeVideos(query) {
@@ -31,7 +31,9 @@ class App extends React.Component {
       currentVideo: clickedVideo
     });
   }
-
+  componentDidMount() {
+    this.getYouTubeVideos('dog');
+  }
   render() {
 
     return (
